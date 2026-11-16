@@ -177,12 +177,18 @@ h1{animation:nameIn 1.1s .45s cubic-bezier(.2,.8,.2,1) both}
 }
 .hero .ghost,.bigq{display:none}
 @media (min-width:1024px){.hero .ghost,.bigq{display:block}}
+
+.langsw{font:600 12px/1 var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--steel);background:transparent;border:1px solid var(--steel);padding:7px 12px;cursor:pointer;white-space:nowrap}
+.langsw b{color:var(--bone);font-weight:700}
+.langsw:hover,.langsw:focus-visible{border-color:var(--brass);outline:none}
+.lgate .langsw{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:5}
+@media (max-width:480px){.top .langsw{padding:6px 9px;letter-spacing:.1em}}
 </style>
 </head>
 <body>
-<div class="lgate" id="lgate" role="dialog" aria-label="プレジデントページへ入る"><img src="leader.webp" alt="" width="760" height="925"><span class="gr">President</span><span class="gn">Yasuya</span><button type="button" id="lgo">▶ Enter</button><small>テーマ曲が流れます</small></div>
+<div class="lgate" id="lgate" role="dialog" aria-label="プレジデントページへ入る"><img src="leader.webp" alt="" width="760" height="925"><span class="gr">President</span><span class="gn">Yasuya</span><button type="button" class="langsw" id="lsw" aria-label="言語を切り替える"><b>JA</b> / EN</button><button type="button" id="lgo">▶ Enter</button><small>テーマ曲が流れます</small></div>
 <div class="navbar"><div class="wrap">
-  <nav class="top" aria-label="サイト"><a class="club" href="./">‹ SLASH GANG MC</a><span class="navl"><a href="#profile">Profile</a><a href="#word">Word</a><a href="#off">Off the Bike</a></span><a href="https://www.instagram.com/sg22.mc" target="_blank" rel="noopener">Instagram</a></nav>
+  <nav class="top" aria-label="サイト"><a class="club" href="./">‹ SLASH GANG MC</a><span class="navl"><a href="#profile">Profile</a><a href="#word">Word</a><a href="#off">Off the Bike</a></span><span style="display:flex;gap:10px;align-items:center"><button type="button" class="langsw" aria-label="言語を切り替える"><b>JA</b> / EN</button><a href="https://www.instagram.com/sg22.mc" target="_blank" rel="noopener">Instagram</a></span></nav>
 </div></div>
 <div class="wrap">
   <header class="hero"><span class="ghost" aria-hidden="true">XXII</span>
@@ -300,8 +306,86 @@ h1{animation:nameIn 1.1s .45s cubic-bezier(.2,.8,.2,1) both}
   toTop();window.addEventListener('load',toTop);window.addEventListener('pageshow',toTop);
   var gate=document.getElementById('lgate');document.documentElement.style.overflow='hidden';
   function open(){if(!gate||gate.classList.contains('out'))return;first();gate.classList.add('out');document.documentElement.style.overflow='';toTop();setTimeout(function(){gate.hidden=true;gate.style.display='none'},750)}
-  gate.addEventListener('click',open);document.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')open()});
+  gate.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.langsw'))return;open()});document.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')open()});
   try{document.getElementById('lgo').focus({preventScroll:true})}catch(e){}
+})();
+</script>
+<script>
+/* JA <-> EN one-click switch (remembered across pages) */
+(function(){
+  var D={
+"音が出ます（エンジン音）":"Sound on (engine roar)",
+"日本を拠点に、":"Based in Japan,",
+"世界を見据えて走る。":"riding with eyes on the world.",
+"SLASH GANG MCは、日本を拠点に世界を見据えて活動するモーターサイクルクラブです。":"SLASH GANG MC is a motorcycle club based in Japan with its sights set on the world.",
+"私たちを結びつけるのは、バイクへの情熱、自由を求める精神、そして仲間への揺るぎない信頼。国籍、年齢、職業、過去の経歴にとらわれず、互いを尊重し、同じ道を走る仲間として強い絆を築いていきます。":"What binds us is a passion for motorcycles, a spirit that seeks freedom, and unshakable trust in our brothers. Regardless of nationality, age, occupation or past, we respect one another and build strong bonds as riders on the same road.",
+"私たちにとってバイクは単なる移動手段ではありません。それは自由の象徴であり、自分自身の生き方を表現する存在です。":"To us, a motorcycle is more than a way to get around. It is a symbol of freedom and an expression of how we choose to live.",
+"誰かに決められた道ではなく、自ら選んだ道を走る。":"Not a road someone chose for us — a road we choose ourselves.",
+"走る道は違っても、信念はひとつ。":"Different roads, one creed.",
+"SLASH GANG MCは、仲間と共に新たな道を切り拓き、国境を越えてその精神を広げていきます。":"Together with our brothers, SLASH GANG MC will carve new roads and carry this spirit beyond borders.",
+"自由を貫き、信念を持ち、仲間と共に走る。":"Stay free, hold your creed, ride with your brothers.",
+"自由と責任、個性と団結。":"Freedom and responsibility. Individuality and unity.",
+"自由と責任":"Freedom & Responsibility",
+"自由とは、好き勝手に生きることではありません。自らの選択に責任を持ち、自分の信じる道を進むことです。":"Freedom does not mean doing whatever you want. It means owning your choices and following the road you believe in.",
+"仲間を支える":"Back Your Brothers",
+"仲間を尊重し、互いを支え、困難なときこそ共に立つ。":"Respect your brothers, support each other, and stand together when times are hard.",
+"本当の強さ":"True Strength",
+"強さとは他者を威圧することではなく、自らの信念を守り、大切な仲間を支えられること。":"Strength is not intimidating others — it is keeping your creed and being there for the people who matter.",
+"SLASH GANG MCは、自由と責任、個性と団結を大切にし、世界に誇れるモーターサイクルクラブを目指します。":"SLASH GANG MC values freedom and responsibility, individuality and unity, and aims to be a motorcycle club the world can respect.",
+"東京・町田エリア":"Machida, Tokyo",
+"東京を拠点に2027年に結成。XXII、そして「1/22（22分の1）」の数字を刻んだクラブの紋章です。":"Founded in Tokyo in 2027. Our club crest carries the numbers XXII and “1/22” — one in twenty-two.",
+"プレジデント紹介を見る ›":"Meet the President ›",
+"同じ道を走る仲間へ。":"To those who ride the same road.",
+"活動の様子やお問い合わせは、Instagramからどうぞ。":"For club news and inquiries, find us on Instagram.",
+"Instagram を見る":"View Instagram",
+"SLASH GANG MC オープニング":"SLASH GANG MC opening",
+"サイト":"Site",
+"二本の刀を持つ骸骨の侍。SLASH GANG MCのメインロゴ":"A skeleton samurai holding two swords — the SLASH GANG MC main logo",
+"下へスクロール":"Scroll down",
+"刀を振るう骸骨の侍のアートワーク":"Artwork of a skeleton samurai swinging his swords",
+"SLASH GANG MCのサブロゴ。ヘルメットの骸骨と交差した刀、東京・MC・XXII・EST. 2027・1/22":"SLASH GANG MC sub logo: a helmeted skull with crossed swords, Tokyo, MC, XXII, EST. 2027, 1/22",
+"テーマ曲が流れます":"Theme music will play",
+"仲間が困ったときこそ、真っ先に横に立つ。":"When a brother is in trouble, I’m the first one at his side.",
+"プレジデント プロフィール":"President Profile",
+"創設者・クラブ代表":"Founder & club leader",
+"東京・町田":"Machida, Tokyo",
+"日本とアメリカのハーフ":"Half Japanese, half American",
+"アメリカンフットボール":"American Football",
+"高校・大学でプレー":"Played in high school and college",
+"SLASH GANG MC 結成":"SLASH GANG MC founded",
+"自由には、責任がついてくる。":"Freedom comes with responsibility.",
+"バイクに乗っているときだけは、肩書きも過去も関係ない。ハーレーのエンジンをかけた瞬間、人はみんな同じ一人のライダーになる。そう思って、このクラブをつくりました。":"On a motorcycle, titles and pasts don’t matter. The moment you fire up a Harley, everyone becomes just another rider. That belief is why I started this club.",
+"高校・大学とアメフトで学んだのは、強さとは一人で目立つことではなく、仲間の前に立ち、仲間を支えることだということ。SLASH GANG MCでも、それは変わりません。":"What football taught me in high school and college is that strength isn’t about standing out alone — it’s about standing in front of your team and holding them up. That doesn’t change at SLASH GANG MC.",
+"日本とアメリカ、ふたつのルーツを持つ自分だからこそ、国籍や年齢で線を引かず、同じ道を走る仲間として向き合いたい。東京から、世界に誇れるクラブを一緒につくっていきましょう。":"With roots in both Japan and America, I don’t draw lines by nationality or age — I want to meet everyone as a rider on the same road. Let’s build a club the world can respect, starting from Tokyo.",
+"バイクを降りても、好きなもの。":"Off the bike, still living it.",
+"カフェ・レストラン巡り":"Café & Restaurant Runs",
+"FAT BOYとスポーツスター883、その日の気分で相棒を選んで、気になる店を目指して走るのが定番。":"Pick the FAT BOY or the Sportster 883 depending on the mood, and ride out to a spot worth the trip.",
+"美味いもん × 酒":"Good Food × Drinks",
+"美味いものを食って、うまい酒を飲む。ツーリングの締めはこれで決まり。":"Great food and a good drink — the only way to end a ride.",
+"映画鑑賞":"Movie Nights",
+"オールジャンル。特にアメコミ、ホラー、コメディが好き。":"Every genre — especially comic-book movies, horror and comedy.",
+"‹ クラブのページへ戻る":"‹ Back to the club page",
+"プレジデントページへ入る":"Enter the President page",
+"SLASH GANG MCのベストを着たプレジデントのイラスト":"Illustration of the President wearing a SLASH GANG MC vest",
+"President｜SLASH GANG MC":"President | SLASH GANG MC",
+"言語を切り替える":"Switch language"
+  };
+  var ATTR=['alt','aria-label','title'],texts=[],attrs=[],ready=false,cur='ja';
+  function scan(){
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n;
+    while(n=w.nextNode()){var p=n.parentNode;if(!p||p.nodeName==='SCRIPT'||p.nodeName==='STYLE')continue;var k=n.nodeValue.trim();if(D[k])texts.push({n:n,ja:n.nodeValue,en:n.nodeValue.replace(k,D[k])})}
+    document.querySelectorAll('[alt],[aria-label],[title]').forEach(function(e){ATTR.forEach(function(a){var v=e.getAttribute(a);if(v&&D[v.trim()])attrs.push({e:e,a:a,ja:v,en:D[v.trim()]})})});
+    ready=true}
+  function apply(l){if(!ready)scan();cur=l;var en=l==='en';
+    texts.forEach(function(t){t.n.nodeValue=en?t.en:t.ja});attrs.forEach(function(t){t.e.setAttribute(t.a,en?t.en:t.ja)});
+    document.documentElement.lang=en?'en':'ja';
+    if(!window.__jaTitle)window.__jaTitle=document.title;document.title=en?(D[window.__jaTitle]||window.__jaTitle):window.__jaTitle;
+    document.querySelectorAll('.langsw').forEach(function(b){b.setAttribute('aria-pressed',en);b.innerHTML=en?'<b>EN</b> / JA':'<b>JA</b> / EN'});
+    try{localStorage.setItem('sg_lang',l)}catch(e){}}
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.langsw');if(!b)return;e.stopPropagation();apply(cur==='en'?'ja':'en')},true);
+  var saved='ja';try{saved=localStorage.getItem('sg_lang')||''}catch(e){}
+  if(!saved){var nl=(navigator.language||'ja').toLowerCase();saved=nl.indexOf('ja')===0?'ja':'en'}
+  apply(saved);
 })();
 </script>
 </body>
