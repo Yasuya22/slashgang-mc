@@ -90,6 +90,17 @@ img{max-width:100%;display:block;-webkit-user-drag:none;user-select:none}
 .tag span{display:block;background:var(--bone);color:#111;font:700 11px/1 var(--f-label);letter-spacing:.06em;padding:6px 7px 5px;border-radius:2px;box-shadow:0 3px 6px rgba(0,0,0,.4)}
 @keyframes tagsw{50%{transform:rotate(6deg)}}
 .rail-wrap.dim .hg-in{filter:blur(3px) brightness(.4)}
+.shelf-sec{position:relative;padding:80px 0 40px;background:radial-gradient(ellipse 60% 70% at 50% 30%,#221a17,transparent 70%)}
+.shelf{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:clamp(18px,6vw,90px);padding:40px 20px 0;max-width:1000px;margin:0 auto}
+.shelf::after{content:"";position:absolute;left:4%;right:4%;bottom:-18px;height:18px;background:linear-gradient(#6b4529,#3a2414 70%,#24160c);border-top:1px solid #8a5d3a;box-shadow:0 26px 34px rgba(0,0,0,.65);z-index:0}
+.shelf::before{content:"";position:absolute;left:12%;right:12%;bottom:-60px;height:42px;background:linear-gradient(90deg,#2a2422 0 10px,transparent 10px calc(100% - 10px),#2a2422 calc(100% - 10px));z-index:0}
+.cap-it{position:relative;z-index:1;width:min(40vw,380px);background:none;border:0;padding:0;cursor:pointer;color:inherit;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.cap-it::before{content:"";position:absolute;left:50%;top:-40px;width:130%;height:150%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 45% at 50% 30%,rgba(255,226,180,.13),transparent 70%);pointer-events:none}
+.cap-it img{position:relative;width:100%;filter:drop-shadow(0 14px 10px rgba(0,0,0,.7))}
+.cap-it:hover,.cap-it:focus-visible{transform:translateY(-10px) rotate(-2deg)}
+.cap-it:focus-visible{outline:2px solid var(--brass);outline-offset:8px}
+.cap-it .lb2{position:absolute;left:0;right:0;bottom:-58px;font:600 11px/1 var(--f-label);letter-spacing:.26em;color:var(--steel);text-align:center}
+.shelf-note{margin:90px 0 0;text-align:center;font:600 11px/1 var(--f-label);letter-spacing:.24em;color:var(--steel)}
 .rail-hint{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;font:600 11px/1 var(--f-label);letter-spacing:.24em;color:var(--steel)}
 .prog{flex:1;max-width:260px;height:2px;background:var(--line);position:relative}
 .prog i{position:absolute;left:0;top:0;height:100%;width:20%;background:var(--bone)}
@@ -100,6 +111,7 @@ img{max-width:100%;display:block;-webkit-user-drag:none;user-select:none}
 .pd-stage{position:relative;height:100%;display:grid;place-items:center;perspective:1600px}
 .pd-hook{position:absolute;left:50%;top:0;width:2px;margin-left:-1px;height:calc(50% - min(36vh,330px));background:linear-gradient(transparent,#9a948c);opacity:0;transition:opacity .4s .3s}
 .pd.on .pd-hook{opacity:1}
+.pd.nohook .pd-hook{display:none}
 .flip{position:relative;width:min(60vh,520px,88vw);aspect-ratio:9/10;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,.9,.2,1)}
 .flip.back{transform:rotateY(180deg)}
 .flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backface-visibility:hidden;-webkit-backface-visibility:hidden;filter:drop-shadow(0 30px 34px rgba(0,0,0,.6))}
@@ -168,7 +180,7 @@ footer a{color:var(--bone);text-decoration:none;margin-right:16px}
 <div class="grain" aria-hidden="true"></div>
 <div class="navbar" id="nav"><div class="wrap top">
   <a class="brand" href="../"><img src="../icon.png" alt="">Slash Gang</a>
-  <nav class="navc" aria-label="ストア"><a href="#orbit">Orbit</a><a href="#rail">Hang Rail</a><a href="#info">Info</a></nav>
+  <nav class="navc" aria-label="ストア"><a href="#orbit">Orbit</a><a href="#rail">Hang Rail</a><a href="#shelf">Shelf</a><a href="#info">Info</a></nav>
   <div class="navr"><a class="hide-sp" href="../">Club</a><button type="button" class="langsw" aria-label="言語を切り替える"><b>JA</b> / EN</button></div>
 </div></div>
 
@@ -201,6 +213,16 @@ footer a{color:var(--bone);text-decoration:none;margin-right:16px}
     <div class="rail" id="railEl"></div>
   </div>
   <div class="wrap rail-hint"><span>◀ DRAG</span><span class="prog"><i id="prog"></i></span><span>TAP TO VIEW</span></div>
+</section>
+
+<!-- SHELF -->
+<section class="shelf-sec" id="shelf">
+  <div class="wrap sec-h rv">
+    <div><span class="lbl">Headwear</span><h2>The Shelf</h2></div>
+    <p data-i18n>キャップは棚に。タップすると手に取って、前も後ろもじっくり見られます。</p>
+  </div>
+  <div class="shelf rv" id="shelfEl"></div>
+  <p class="shelf-note">TAP TO VIEW</p>
 </section>
 
 <!-- INFO -->
@@ -267,7 +289,7 @@ var D={"ドラッグで回転":"Drag to spin","ハンガーラックを左右に
 "※単位はcm。平置きで測った目安です。商品によって多少の誤差があります。":"* In cm, measured flat. Slight variation by item.","ご購入の流れ":"How to buy","色とサイズを選んで「購入する」を押す":"Pick a color and size, then tap “Buy”",
 "決済ページ（Square）でお届け先とお支払い情報を入力":"Enter shipping and payment on the Square checkout page","ご入金確認後、発送します":"We ship once payment is confirmed","送料・発送":"Shipping","返品・交換":"Returns & exchanges",
 "商品到着後7日以内の初期不良・誤配送のみ交換いたします。お客様都合による返品・交換はお受けしておりません。":"We exchange defective or wrong items reported within 7 days of delivery. We can’t accept returns for change of mind.",
-"特定商取引法に基づく表記":"Legal notice (Japan)","言語を切り替える":"Switch language","閉じる":"Close","表示する面":"Side","カラー":"Color","サイズ":"Size","ストア":"Store",
+"特定商取引法に基づく表記":"Legal notice (Japan)","言語を切り替える":"Switch language","閉じる":"Close","表示する面":"Side","カラー":"Color","サイズ":"Size","ストア":"Store","キャップは棚に。タップすると手に取って、前も後ろもじっくり見られます。":"Caps live on the shelf. Tap one to pick it up and check the front and back.",
 "アイテムを360度回して見られます。左右にドラッグしてください":"Spin the collection 360°. Drag left or right."};
 var L='ja';try{L=localStorage.getItem('sg_lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -301,7 +323,7 @@ function $(i){return document.getElementById(i)}
 /* ---------- HANG RAIL ---------- */
 var rail=$('railEl'),rw=$('railWrap'),items=[];
 (function(){
- var seq=[0,3,4,2,1,0,3,4,2,1,0,3,4,2,1];var html='';
+ var seq=[0,3,2,1,0,3,2,1,0,3,2,1,0,3,2,1];var html='';
  seq.forEach(function(pi,i){var p=PRODUCTS[pi];
   html+='<div class="hg" data-p="'+pi+'"><div class="hg-in">'+
   '<svg class="hook" viewBox="0 0 40 60" aria-hidden="true"><path d="M20 30V14a7 7 0 1 0-7-7" fill="none" stroke="#c9c3ba" stroke-width="2.4" stroke-linecap="round"/><path d="M4 44 20 30l16 14" fill="none" stroke="#7a4a2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
@@ -327,9 +349,17 @@ var rail=$('railEl'),rw=$('railWrap'),items=[];
  addEventListener('resize',bounds);setTimeout(bounds,50);step();
 })();
 
+/* ---------- SHELF (caps) ---------- */
+(function(){var el=$('shelfEl'),h='';
+ PRODUCTS.forEach(function(p,pi){if(p.group!=='cap')return;
+  [['f','FRONT'],['b','BACK']].forEach(function(v){h+='<button type="button" class="cap-it" data-p="'+pi+'" data-face="'+v[0]+'" aria-label="'+p.name+' '+v[1]+'"><img src="'+p[v[0]].replace('.webp','-s.webp')+'" alt="" draggable="false"><span class="lb2">'+v[1]+'</span></button>'})});
+ el.innerHTML=h;
+ el.addEventListener('click',function(e){var b=e.target.closest('.cap-it');if(!b)return;openPd(+b.dataset.p,b.dataset.face,b.querySelector('img'),b)});
+})();
+
 /* ---------- PRODUCT DETAIL ---------- */
 var pd=$('pd'),flip=$('flip'),cur=0,face='f',size='',srcHg=null,lastFocus=null;
-function fill(){var p=PRODUCTS[cur];
+function fill(){var p=PRODUCTS[cur];pd.classList.toggle('nohook',p.group==='cap');
  $('imgF').src=p.f;$('imgB').src=p.b;$('imgF').alt=p.name+' '+t(p.color)+' FRONT';$('imgB').alt=p.name+' '+t(p.color)+' BACK';
  var groups=[];PRODUCTS.forEach(function(q){if(groups.indexOf(q.group)<0)groups.push(q.group)});$('pdNo').textContent=String(groups.indexOf(p.group)+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0');
  $('pdName').textContent=p.name;$('pdPrice').innerHTML=yen(p.price)+(p.price?'<small>'+(L==='ja'?'税込':'tax incl.')+'</small>':'');$('pdDesc').textContent=t(p.desc);$('colName').textContent=t(p.color).toUpperCase();
@@ -347,7 +377,7 @@ function openPd(pi,fc,fromImg,hg){
   var fl=document.createElement('img');fl.src=fromImg.src;fl.className='fly';fl.style.left=tgt.left+'px';fl.style.top=tgt.top+'px';fl.style.width=tgt.width+'px';fl.style.height=tgt.height+'px';fl.style.objectFit='contain';
   document.body.appendChild(fl);flip.style.opacity=0;
   var sx=r.width/tgt.width,sy=r.height/tgt.height;
-  fl.animate([{transform:'translate('+(r.left-tgt.left)+'px,'+(r.top-tgt.top)+'px) scale('+sx+','+sy+') perspective(800px) rotateY('+(hg?72:0)+'deg)'},{transform:'none'}],{duration:750,easing:'cubic-bezier(.2,.85,.2,1)'}).onfinish=function(){fl.remove();flip.style.opacity=1};
+  fl.animate([{transform:'translate('+(r.left-tgt.left)+'px,'+(r.top-tgt.top)+'px) scale('+sx+','+sy+') perspective(800px) rotateY('+(hg&&hg.classList.contains('hg')?72:0)+'deg)'},{transform:'none'}],{duration:750,easing:'cubic-bezier(.2,.85,.2,1)'}).onfinish=function(){fl.remove();flip.style.opacity=1};
  }
  requestAnimationFrame(function(){pd.classList.add('on')});
  setTimeout(function(){$('pdX').focus({preventScroll:true})},60);
