@@ -175,14 +175,14 @@ footer a{color:var(--bone);text-decoration:none;margin-right:16px}
 <!-- ORBIT -->
 <header class="hero" id="orbit">
   <div class="hero-word" aria-hidden="true">Slash Gang</div>
-  <div class="hero-name" aria-live="polite"><span class="lbl">Official Store · 2026</span><b id="faceName" style="margin-top:12px">BLACK / FRONT</b></div>
-  <div class="stage3d" id="stage" role="img" aria-label="パーカーを360度回して見られます。左右にドラッグしてください">
+  <div class="hero-name" aria-live="polite"><span class="lbl">Official Store · 2026</span><b id="faceName" style="margin-top:12px">HOODIE · BLACK / FRONT</b></div>
+  <div class="stage3d" id="stage" role="img" aria-label="アイテムを360度回して見られます。左右にドラッグしてください">
     <div class="ring" id="ring"></div>
     <div class="floor"></div>
   </div>
   <div class="hero-copy">
     <span class="lbl">Motorcycle Club · Tokyo</span>
-    <h1>Samurai Skull Hoodie</h1>
+    <h1>Official Apparel</h1>
     <p>RIDE FREE. STAND TOGETHER.</p>
     <span class="drag"><i></i><span data-i18n>ドラッグで回転</span><i></i></span>
   </div>
@@ -245,11 +245,14 @@ footer a{color:var(--bone);text-decoration:none;margin-right:16px}
 */
 var SHIP={ja:'送料・発送日数は販売開始時にお知らせします。販売開始のお知らせはInstagramで行います。',en:'Shipping fees and times will be announced at launch. Follow our Instagram for the release.'};
 var PRODUCTS=[
- {id:'hoodie-black',name:'Samurai Skull Hoodie',color:{ja:'ブラック',en:'Black'},hex:'#111',price:0,f:'img/bk-f.webp',b:'img/bk-b.webp',
+ {id:'hoodie-black',group:'hoodie',name:'Samurai Skull Hoodie',color:{ja:'ブラック',en:'Black'},hex:'#111',price:0,f:'img/bk-f.webp',b:'img/bk-b.webp',
   desc:{ja:'胸に「Slash Gang」ロゴ、背中にクラブを象徴するサムライスカルを大きくプリント。',en:'“Slash Gang” logo on the chest, the club’s samurai skull printed big on the back.'},
   sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
- {id:'hoodie-white',name:'Samurai Skull Hoodie',color:{ja:'ホワイト',en:'White'},hex:'#eee',price:0,f:'img/wh-f.webp?v=2',b:'img/wh-b.webp',
+ {id:'hoodie-white',group:'hoodie',name:'Samurai Skull Hoodie',color:{ja:'ホワイト',en:'White'},hex:'#eee',price:0,f:'img/wh-f.webp?v=2',b:'img/wh-b.webp',
   desc:{ja:'胸に「Slash Gang」ロゴ、背中にクラブを象徴するサムライスカルを大きくプリント。',en:'“Slash Gang” logo on the chest, the club’s samurai skull printed big on the back.'},
+  sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
+ {id:'tee-black',group:'tee',name:'Helmet Skull Tee',color:{ja:'ブラック',en:'Black'},hex:'#111',price:0,f:'img/tb-f.webp',b:'img/tb-b.webp',
+  desc:{ja:'胸にヘルメットをかぶったスカルと血のしたたる2本の日本刀、背中の肩口に「Slash Gang」のロゴ。',en:'Helmeted skull with two blood-dripping katanas on the chest, “Slash Gang” across the shoulders on the back.'},
   sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}}
 ];
 var SIZE_GUIDE={head:['S','M','L','XL','XXL'],rows:[['着丈','Length','—','—','—','—','—'],['身幅','Chest','—','—','—','—','—'],['袖丈','Sleeve','—','—','—','—','—']]};
@@ -259,7 +262,7 @@ var D={"ドラッグで回転":"Drag to spin","ハンガーラックを左右に
 "決済ページ（Square）でお届け先とお支払い情報を入力":"Enter shipping and payment on the Square checkout page","ご入金確認後、発送します":"We ship once payment is confirmed","送料・発送":"Shipping","返品・交換":"Returns & exchanges",
 "商品到着後7日以内の初期不良・誤配送のみ交換いたします。お客様都合による返品・交換はお受けしておりません。":"We exchange defective or wrong items reported within 7 days of delivery. We can’t accept returns for change of mind.",
 "特定商取引法に基づく表記":"Legal notice (Japan)","言語を切り替える":"Switch language","閉じる":"Close","表示する面":"Side","カラー":"Color","サイズ":"Size","ストア":"Store",
-"パーカーを360度回して見られます。左右にドラッグしてください":"Spin the hoodie 360°. Drag left or right."};
+"アイテムを360度回して見られます。左右にドラッグしてください":"Spin the collection 360°. Drag left or right."};
 var L='ja';try{L=localStorage.getItem('sg_lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function t(o){return typeof o==='string'?o:(o[L]||o.ja)}
@@ -268,12 +271,12 @@ function $(i){return document.getElementById(i)}
 
 /* ---------- ORBIT ---------- */
 (function(){
- var faces=[[PRODUCTS[0].f,'BLACK / FRONT'],[PRODUCTS[1].f,'WHITE / FRONT'],[PRODUCTS[0].b,'BLACK / BACK'],[PRODUCTS[1].b,'WHITE / BACK']];
+ var faces=[[PRODUCTS[0].f,'HOODIE · BLACK / FRONT',0,'f'],[PRODUCTS[1].f,'HOODIE · WHITE / FRONT',1,'f'],[PRODUCTS[2].f,'TEE · BLACK / FRONT',2,'f'],[PRODUCTS[0].b,'HOODIE · BLACK / BACK',0,'b'],[PRODUCTS[1].b,'HOODIE · WHITE / BACK',1,'b'],[PRODUCTS[2].b,'TEE · BLACK / BACK',2,'b']];
  var ring=$('ring'),st=$('stage'),nm=$('faceName'),n=faces.length,R;
  ring.innerHTML=faces.map(function(f,i){return '<figure class="face" data-i="'+i+'"><img src="'+f[0]+'" alt="" draggable="false"></figure>'}).join('');
  var els=[].slice.call(ring.children);
  var ang=0,vel=RM?0:.12,drag=false,lx=0,lastShown=-1;
- function layout(){var w=els[0].offsetWidth,h=els[0].offsetHeight;R=Math.max(w*.95,Math.min(st.offsetWidth*.42,w*1.25));
+ function layout(){var w=els[0].offsetWidth,h=els[0].offsetHeight;R=Math.max(w*.95,w*.56/Math.sin(Math.PI/n));
   els.forEach(function(e,i){e.style.marginLeft=(-w/2)+'px';e.style.marginTop=(-h/2)+'px'})}
  function draw(){ring.style.transform='translateZ('+(-R)+'px) rotateY('+ang+'deg)';
   var best=0,bd=1e9;els.forEach(function(e,i){var a=((i*360/n+ang)%360+540)%360-180;var ad=Math.abs(a);
@@ -285,14 +288,14 @@ function $(i){return document.getElementById(i)}
  st.addEventListener('pointerdown',function(e){drag=true;lx=e.clientX;vel=0;st.setPointerCapture(e.pointerId)});
  st.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-lx;lx=e.clientX;ang+=dx*.35;vel=dx*.35});
  ['pointerup','pointercancel'].forEach(function(ev){st.addEventListener(ev,function(){drag=false})});
- st.addEventListener('click',function(){if(Math.abs(vel)<.5){var p=lastShown%2;openPd(p,lastShown>=2?'b':'f',els[lastShown].querySelector('img'))}});
+ st.addEventListener('click',function(){if(Math.abs(vel)<.5){var fc=faces[lastShown];openPd(fc[2],fc[3],els[lastShown].querySelector('img'))}});
  addEventListener('resize',layout);layout();loop();
 })();
 
 /* ---------- HANG RAIL ---------- */
 var rail=$('railEl'),rw=$('railWrap'),items=[];
 (function(){
- var seq=[0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1];var html='';
+ var seq=[0,2,1,0,2,1,0,2,1,0,2,1,0,2,1];var html='';
  seq.forEach(function(pi,i){var p=PRODUCTS[pi];
   html+='<div class="hg" data-p="'+pi+'"><div class="hg-in">'+
   '<svg class="hook" viewBox="0 0 40 60" aria-hidden="true"><path d="M20 30V14a7 7 0 1 0-7-7" fill="none" stroke="#c9c3ba" stroke-width="2.4" stroke-linecap="round"/><path d="M4 44 20 30l16 14" fill="none" stroke="#7a4a2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
@@ -322,9 +325,9 @@ var rail=$('railEl'),rw=$('railWrap'),items=[];
 var pd=$('pd'),flip=$('flip'),cur=0,face='f',size='',srcHg=null,lastFocus=null;
 function fill(){var p=PRODUCTS[cur];
  $('imgF').src=p.f;$('imgB').src=p.b;$('imgF').alt=p.name+' '+t(p.color)+' FRONT';$('imgB').alt=p.name+' '+t(p.color)+' BACK';
- $('pdNo').textContent=String(cur+1).padStart(2,'0')+' / '+String(PRODUCTS.length).padStart(2,'0');
+ var groups=[];PRODUCTS.forEach(function(q){if(groups.indexOf(q.group)<0)groups.push(q.group)});$('pdNo').textContent=String(groups.indexOf(p.group)+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0');
  $('pdName').textContent=p.name;$('pdPrice').innerHTML=yen(p.price)+(p.price?'<small>'+(L==='ja'?'税込':'tax incl.')+'</small>':'');$('pdDesc').textContent=t(p.desc);$('colName').textContent=t(p.color).toUpperCase();
- $('sw').innerHTML=PRODUCTS.map(function(q,i){return '<button type="button" data-c="'+i+'" style="background:'+q.hex+'" aria-label="'+t(q.color)+'" aria-pressed="'+(i===cur)+'"></button>'}).join('');
+ $('sw').innerHTML=PRODUCTS.map(function(q,i){if(q.group!==p.group)return '';return '<button type="button" data-c="'+i+'" style="background:'+q.hex+'" aria-label="'+t(q.color)+'" aria-pressed="'+(i===cur)+'"></button>'}).join('');
  if(p.soldout.indexOf(size)>=0||p.sizes.indexOf(size)<0)size='';
  $('sizes').innerHTML=p.sizes.map(function(z){return '<button type="button" data-s="'+z+'" aria-pressed="'+(z===size)+'"'+(p.soldout.indexOf(z)>=0?' disabled':'')+'>'+z+'</button>'}).join('');
  var live=!!(p.link||Object.keys(p.links||{}).length);$('buy').textContent=live?(L==='ja'?'購入する':'Buy now'):(L==='ja'?'近日発売 ・ Instagramで告知':'Coming soon · see Instagram');$('buy').dataset.live=live?'1':'';$('hint').textContent='';
