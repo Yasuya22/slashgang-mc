@@ -253,6 +253,9 @@ var PRODUCTS=[
   sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
  {id:'tee-black',group:'tee',name:'Helmet Skull Tee',color:{ja:'ブラック',en:'Black'},hex:'#111',price:0,f:'img/tb-f.webp',b:'img/tb-b.webp',
   desc:{ja:'胸にヘルメットをかぶったスカルと血のしたたる2本の日本刀、背中の肩口に「Slash Gang」のロゴ。',en:'Helmeted skull with two blood-dripping katanas on the chest, “Slash Gang” across the shoulders on the back.'},
+  sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
+ {id:'tee-white',group:'tee',name:'Helmet Skull Tee',color:{ja:'ホワイト',en:'White'},hex:'#eee',price:0,f:'img/wht-f.webp',b:'img/wht-b.webp',
+  desc:{ja:'胸にヘルメットをかぶったスカルと血のしたたる2本の日本刀、背中の肩口に「Slash Gang」のロゴ。',en:'Helmeted skull with two blood-dripping katanas on the chest, “Slash Gang” across the shoulders on the back.'},
   sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}}
 ];
 var SIZE_GUIDE={head:['S','M','L','XL','XXL'],rows:[['着丈','Length','—','—','—','—','—'],['身幅','Chest','—','—','—','—','—'],['袖丈','Sleeve','—','—','—','—','—']]};
@@ -271,7 +274,7 @@ function $(i){return document.getElementById(i)}
 
 /* ---------- ORBIT ---------- */
 (function(){
- var faces=[[PRODUCTS[0].f,'HOODIE · BLACK / FRONT',0,'f'],[PRODUCTS[1].f,'HOODIE · WHITE / FRONT',1,'f'],[PRODUCTS[2].f,'TEE · BLACK / FRONT',2,'f'],[PRODUCTS[0].b,'HOODIE · BLACK / BACK',0,'b'],[PRODUCTS[1].b,'HOODIE · WHITE / BACK',1,'b'],[PRODUCTS[2].b,'TEE · BLACK / BACK',2,'b']];
+ var faces=[[PRODUCTS[0].f,'HOODIE · BLACK / FRONT',0,'f'],[PRODUCTS[3].f,'TEE · WHITE / FRONT',3,'f'],[PRODUCTS[1].f,'HOODIE · WHITE / FRONT',1,'f'],[PRODUCTS[2].f,'TEE · BLACK / FRONT',2,'f'],[PRODUCTS[0].b,'HOODIE · BLACK / BACK',0,'b'],[PRODUCTS[3].b,'TEE · WHITE / BACK',3,'b'],[PRODUCTS[1].b,'HOODIE · WHITE / BACK',1,'b'],[PRODUCTS[2].b,'TEE · BLACK / BACK',2,'b']];
  var ring=$('ring'),st=$('stage'),nm=$('faceName'),n=faces.length,R;
  ring.innerHTML=faces.map(function(f,i){return '<figure class="face" data-i="'+i+'"><img src="'+f[0]+'" alt="" draggable="false"></figure>'}).join('');
  var els=[].slice.call(ring.children);
@@ -295,7 +298,7 @@ function $(i){return document.getElementById(i)}
 /* ---------- HANG RAIL ---------- */
 var rail=$('railEl'),rw=$('railWrap'),items=[];
 (function(){
- var seq=[0,2,1,0,2,1,0,2,1,0,2,1,0,2,1];var html='';
+ var seq=[0,3,2,1,0,3,2,1,0,3,2,1,0,3,2,1];var html='';
  seq.forEach(function(pi,i){var p=PRODUCTS[pi];
   html+='<div class="hg" data-p="'+pi+'"><div class="hg-in">'+
   '<svg class="hook" viewBox="0 0 40 60" aria-hidden="true"><path d="M20 30V14a7 7 0 1 0-7-7" fill="none" stroke="#c9c3ba" stroke-width="2.4" stroke-linecap="round"/><path d="M4 44 20 30l16 14" fill="none" stroke="#7a4a2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
