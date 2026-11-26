@@ -32,6 +32,7 @@ a{color:inherit}
 .wrap{width:100%;max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .top{display:flex;justify-content:space-between;align-items:center;padding-block:16px;font-family:var(--f-label);letter-spacing:.18em;font-size:13px;text-transform:uppercase;color:var(--steel)}
 .top a{text-decoration:none;border:1px solid var(--steel);padding:6px 14px;color:var(--bone)}
+.top a.store{background:var(--blood);border-color:var(--blood);color:#fff}
 .top a:hover,.top a:focus-visible{border-color:var(--brass);color:var(--brass);outline:none}
 
 /* hero */
@@ -281,6 +282,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
 .gate button.langsw b{color:var(--bone)}
 @media (max-width:480px){.top .est{display:none}}
 @media (max-width:480px){.top .langsw{padding:6px 9px;letter-spacing:.1em}}
+@media (max-width:480px){.top a{padding:6px 8px;font-size:11px;letter-spacing:.06em}.top>span:last-child{gap:5px!important}.top .langsw{padding:6px 7px}}
 </style>
 </head>
 <body>
@@ -314,7 +316,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
   <button type="button" class="skip" id="skip" hidden>Skip ›</button>
   <div class="vig"></div><div class="grain"></div>
 </div>
-<div class="navbar"><div class="wrap"><nav class="top" aria-label="サイト"><span class="est">Est. Tokyo</span><span class="navl"><a class="pc" href="#about">About</a><a class="pc" href="#creed">Creed</a><a class="pc" href="#values">Values</a><a class="pc" href="#base">Base</a></span><span style="display:flex;gap:10px;align-items:center"><button type="button" class="langsw" aria-label="言語を切り替える"><b>JA</b> / EN</button><a href="leader.html">President</a><a href="https://www.instagram.com/sg22.mc" target="_blank" rel="noopener">Instagram</a></span></nav></div></div>
+<div class="navbar"><div class="wrap"><nav class="top" aria-label="サイト"><span class="est">Est. Tokyo</span><span class="navl"><a class="pc" href="#about">About</a><a class="pc" href="#creed">Creed</a><a class="pc" href="#values">Values</a><a class="pc" href="#base">Base</a></span><span style="display:flex;gap:10px;align-items:center"><button type="button" class="langsw" aria-label="言語を切り替える"><b>JA</b> / EN</button><a class="store" href="shop/">Store</a><a href="leader.html">President</a><a href="https://www.instagram.com/sg22.mc" target="_blank" rel="noopener">Instagram</a></span></nav></div></div>
 <div class="wrap">
   <header class="hero">
     <span class="xxii" aria-hidden="true">XXII</span><span class="hstreak" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
