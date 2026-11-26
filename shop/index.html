@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Official Store｜SLASH GANG MC</title>
+<meta name="description" content="SLASH GANG MC オフィシャルストア。クラブのアートをまとったTシャツ・パーカー・キャップなど。カード・Apple Pay・Google Payで購入できます。">
+<meta property="og:title" content="SLASH GANG MC Official Store">
+<meta property="og:description" content="RIDE FREE. STAND TOGETHER. クラブのアートをまとうオフィシャルアパレル。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yasuya22.github.io/slashgang-mc/shop/">
+<meta property="og:image" content="https://yasuya22.github.io/slashgang-mc/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Oswald:wght@500;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+<style>
+:root{--asphalt:#0F0D0D;--coal:#1A1716;--line:#2C2725;--bone:#EFE6D2;--blood:#C8102E;--brass:#D9A23A;--steel:#8E8A84;
+--f-mark:'Pirata One',Georgia,serif;--f-label:'Oswald','Arial Narrow',Impact,sans-serif;--f-body:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--asphalt);color:var(--bone);font:500 15px/1.8 var(--f-body);-webkit-font-smoothing:antialiased;
+ background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:4px 4px}
+a{color:inherit}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.lbl{font:600 12px/1 var(--f-label);letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+/* nav */
+.navbar{position:sticky;top:0;z-index:20;background:rgba(15,13,13,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:400 24px/1 var(--f-mark);letter-spacing:.02em}
+.brand img{width:34px;height:34px;object-fit:contain}
+.navr{display:flex;align-items:center;gap:10px}
+.navr a{font:600 12px/1 var(--f-label);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--bone);border:1px solid var(--steel);padding:8px 12px}
+.navr a:hover{border-color:var(--brass)}
+.langsw{font:600 12px/1 var(--f-label);letter-spacing:.18em;color:var(--steel);background:transparent;border:1px solid var(--steel);padding:8px 12px;cursor:pointer}
+.langsw b{color:var(--bone)}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:24px;padding-block:56px 40px}
+.hero h1{margin:14px 0 0;font:400 clamp(56px,9vw,112px)/.9 var(--f-mark);color:var(--bone);text-shadow:4px 4px 0 var(--blood)}
+.hero h1 small{display:block;font:700 clamp(18px,2.4vw,26px)/1.2 var(--f-label);letter-spacing:.3em;color:var(--brass);text-shadow:none;margin-top:14px}
+.hero p{max-width:34em;color:#d8cfbc;margin:18px 0 0}
+.hero .art{position:relative}
+.hero .art img{width:100%;max-width:440px;margin-left:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding:0;list-style:none}
+.badges li{font:600 12px/1 var(--f-label);letter-spacing:.12em;border:1px solid var(--line);background:var(--coal);padding:9px 12px}
+/* filter */
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:34px 18px}
+.bar h2{margin:0;font:400 clamp(34px,5vw,48px)/1 var(--f-mark)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:600 12px/1 var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--bone);background:transparent;border:1px solid var(--line);padding:10px 14px;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--blood);border-color:var(--blood)}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;padding-bottom:30px}
+.card{background:var(--coal);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:#4a403c}
+.ph{position:relative;aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#2a2321,#141110 70%);overflow:hidden;cursor:zoom-in;border:0;padding:0;width:100%}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .ph img{transform:scale(1.04)}
+.ph .tag{position:absolute;top:12px;left:12px;font:700 11px/1 var(--f-label);letter-spacing:.16em;background:var(--blood);color:#fff;padding:7px 9px}
+.ph .tag.soon{background:var(--brass);color:#111}
+.ph .tag.out{background:#444}
+.ph .dots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.ph .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}
+.ph .dots i.on{background:var(--bone)}
+.bd{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.cat{font:600 11px/1 var(--f-label);letter-spacing:.2em;color:var(--steel);text-transform:uppercase}
+.bd h3{margin:0;font:700 18px/1.35 var(--f-body)}
+.price{font:700 22px/1 var(--f-label);letter-spacing:.04em;color:var(--bone)}
+.price small{font:500 12px/1 var(--f-body);color:var(--steel);margin-left:4px;letter-spacing:0}
+.desc{margin:0;font-size:13.5px;color:#cfc6b3;line-height:1.7}
+.opt{display:flex;flex-wrap:wrap;gap:6px}
+.opt button{min-width:44px;font:600 13px/1 var(--f-label);letter-spacing:.06em;background:transparent;color:var(--bone);border:1px solid var(--line);padding:10px 10px;cursor:pointer}
+.opt button[aria-pressed=true]{border-color:var(--bone);background:var(--bone);color:#111}
+.opt button:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.optl{font:600 11px/1 var(--f-label);letter-spacing:.2em;color:var(--steel)}
+.buy{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;font:700 15px/1 var(--f-label);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--blood);border:0;padding:15px;cursor:pointer;transition:filter .15s}
+.buy:hover{filter:brightness(1.12)}
+.buy[aria-disabled=true]{background:#3a3433;color:#9a918a;cursor:not-allowed;filter:none}
+.hint{min-height:1.2em;margin:-4px 0 0;font-size:12px;color:var(--brass)}
+/* info */
+.info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-block:20px 50px}
+.box{border:1px solid var(--line);background:var(--coal);padding:20px}
+.box h3{margin:8px 0 8px;font:700 17px/1.4 var(--f-body)}
+.box p,.box ul{margin:0;font-size:13.5px;color:#cfc6b3;line-height:1.8}
+.box ul{padding-left:1.1em}
+.sizes{overflow-x:auto;border:1px solid var(--line);background:var(--coal);margin-bottom:22px}
+.sizes table{border-collapse:collapse;width:100%;min-width:520px;font:500 14px/1 var(--f-label);letter-spacing:.06em}
+.sizes th,.sizes td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:center}
+.sizes thead th{color:var(--brass);font-weight:600;letter-spacing:.16em}
+.sizes tbody th{text-align:left;color:var(--steel);font-weight:500}
+.cap{font-size:12px;color:var(--steel);margin:-12px 0 22px}
+footer{border-top:1px solid var(--line);padding-block:26px calc(26px + env(safe-area-inset-bottom,0px));font-size:12px;color:var(--steel)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--bone);text-decoration:none;margin-right:16px}
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.lb img{max-height:86vh;width:auto;max-width:100%}
+.lb button{position:absolute;background:transparent;border:1px solid var(--steel);color:var(--bone);font:600 14px/1 var(--f-label);letter-spacing:.14em;padding:12px 14px;cursor:pointer}
+.lb .x{top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}
+.lb .pv{left:max(16px,env(safe-area-inset-left,0px))}.lb .nx{right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.info{grid-template-columns:1fr}}
+@media (max-width:680px){.hero .wrap{grid-template-columns:1fr;padding-block:36px 28px}.hero .art{order:-1}.hero .art img{max-width:260px;margin:0 auto}}
+@media (max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.navr a.hide-sp{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="navbar"><div class="wrap top">
+  <a class="brand" href="../"><img src="../icon.png" alt="">Slash Gang</a>
+  <div class="navr"><a class="hide-sp" href="../">Club</a><a href="https://www.instagram.com/sg22.mc" target="_blank" rel="noopener">Instagram</a><button type="button" class="langsw" aria-label="言語を切り替える"><b>JA</b> / EN</button></div>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="lbl">Motorcycle Club · Tokyo</span>
+    <h1>Official Store<small>SLASH GANG MC</small></h1>
+    <p data-i18n>クラブのアートをまとう、オフィシャルアパレル。メンバーも、仲間も、走りを愛するすべての人へ。</p>
+    <ul class="badges"><li data-i18n>カード・Apple Pay・Google Pay</li><li data-i18n>全国発送</li><li data-i18n>数量限定</li></ul>
+  </div>
+  <div class="art"><img src="../samurai.webp" alt="SLASH GANG MCのサムライスカルのアート" width="900" height="858"></div>
+</div></header>
+
+<main class="wrap">
+  <div class="bar"><h2>Items</h2><div class="chips" id="chips" role="group" aria-label="カテゴリー"></div></div>
+  <div class="grid" id="grid"></div>
+
+  <h2 class="bar" style="padding-top:30px;margin:0;font:400 clamp(30px,4.4vw,42px)/1 var(--f-mark)">Size Guide</h2>
+  <div class="sizes" id="sizeGuide"></div>
+  <p class="cap" data-i18n>※単位はcm。平置きで測った目安です。商品によって多少の誤差があります。</p>
+
+  <div class="info">
+    <div class="box"><span class="lbl">How to buy</span><h3 data-i18n>ご購入の流れ</h3><ul><li data-i18n>サイズを選んで「購入する」を押す</li><li data-i18n>決済ページ（Square）でお届け先とお支払い情報を入力</li><li data-i18n>ご入金確認後、発送します</li></ul></div>
+    <div class="box"><span class="lbl">Shipping</span><h3 data-i18n>送料・発送</h3><p id="shipTxt"></p></div>
+    <div class="box"><span class="lbl">Returns</span><h3 data-i18n>返品・交換</h3><p data-i18n>商品到着後7日以内の初期不良・誤配送のみ交換いたします。お客様都合による返品・交換はお受けしておりません。</p></div>
+  </div>
+</main>
+
+<footer><div class="wrap"><div><a href="../">SLASH GANG MC</a><a href="legal.html" data-i18n>特定商取引法に基づく表記</a></div><span>© 2026 SLASH GANG MC</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="商品画像"><img id="lbImg" alt=""><button class="pv" type="button" aria-label="前の画像">‹</button><button class="nx" type="button" aria-label="次の画像">›</button><button class="x" type="button" aria-label="閉じる">Close ×</button></div>
+
+<script>
+/* ===== 商品データ（ここを書き換えるだけで更新できます） =====
+  status: 'sale' 販売中 / 'soon' 近日発売 / 'out' 売り切れ
+  link:  Squareの決済リンク（全サイズ共通）
+  links: サイズごとに別の決済リンクを使う場合 {S:'...',M:'...'}
+  soldout: 売り切れのサイズ ['XL']
+*/
+var SHIP={ja:'全国一律 送料___円（___円以上のご購入で送料無料）。ご入金確認後、___営業日以内に発送します。',en:'Flat shipping ¥___ anywhere in Japan (free over ¥___). Ships within ___ business days after payment.'};
+var ITEMS=[
+ {id:'tee-samurai',cat:'tee',name:{ja:'サムライスカル Tシャツ',en:'Samurai Skull Tee'},price:0,status:'sale',img:['../samurai.webp'],
+  desc:{ja:'【仮】クラブを象徴するサムライスカルを背面に大きくプリント。',en:'[Sample] The club’s samurai skull printed big on the back.'},sizes:['S','M','L','XL','XXL'],soldout:[],link:''},
+ {id:'hoodie-logo',cat:'hoodie',name:{ja:'クラブロゴ パーカー',en:'Club Logo Hoodie'},price:0,status:'sale',img:['../sg-a.webp'],
+  desc:{ja:'【仮】胸にロゴ、背中にクラブアート。厚手の裏起毛。',en:'[Sample] Logo on the chest, club art on the back. Heavyweight fleece.'},sizes:['M','L','XL'],soldout:[],link:''},
+ {id:'cap',cat:'goods',name:{ja:'サブロゴ キャップ',en:'Sub Logo Cap'},price:0,status:'soon',img:['../sub.webp'],
+  desc:{ja:'【仮】サブロゴ刺繍のキャップ。',en:'[Sample] Cap with embroidered sub logo.'},sizes:['FREE'],soldout:[],link:''}
+];
+var SIZE_GUIDE={head:['S','M','L','XL','XXL'],rows:[['着丈',{en:'Length'},'—','—','—','—','—'],['身幅',{en:'Chest'},'—','—','—','—','—'],['袖丈',{en:'Sleeve'},'—','—','—','—','—']]};
+var CATS=[['all','All'],['tee','T-Shirts'],['hoodie','Hoodies'],['goods','Goods']];
+/* ================================================== */
+var D={"クラブのアートをまとう、オフィシャルアパレル。メンバーも、仲間も、走りを愛するすべての人へ。":"Official apparel wearing the club’s art — for members, friends and everyone who loves the ride.",
+"カード・Apple Pay・Google Pay":"Card · Apple Pay · Google Pay","全国発送":"Ships nationwide","数量限定":"Limited run",
+"※単位はcm。平置きで測った目安です。商品によって多少の誤差があります。":"* In cm, measured flat. Slight variation by item.",
+"ご購入の流れ":"How to buy","サイズを選んで「購入する」を押す":"Pick a size and tap “Buy”","決済ページ（Square）でお届け先とお支払い情報を入力":"Enter shipping and payment on the Square checkout page","ご入金確認後、発送します":"We ship once payment is confirmed",
+"送料・発送":"Shipping","返品・交換":"Returns & exchanges","商品到着後7日以内の初期不良・誤配送のみ交換いたします。お客様都合による返品・交換はお受けしておりません。":"We exchange defective or wrong items reported within 7 days of delivery. We can’t accept returns for change of mind.",
+"特定商取引法に基づく表記":"Legal notice (Japan)","言語を切り替える":"Switch language","カテゴリー":"Categories","商品画像":"Product image","前の画像":"Previous image","次の画像":"Next image","閉じる":"Close",
+"SLASH GANG MCのサムライスカルのアート":"SLASH GANG MC samurai skull art"};
+var L='ja';try{L=localStorage.getItem('sg_lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}
+var cat='all',sel={};
+function t(o){return typeof o==='string'?o:(o[L]||o.ja)}
+function yen(n){return n?'¥'+n.toLocaleString('ja-JP'):'¥—'}
+function render(){
+ document.getElementById('chips').innerHTML=CATS.map(function(c){return '<button type="button" data-c="'+c[0]+'" aria-pressed="'+(cat===c[0])+'">'+c[1]+'</button>'}).join('');
+ var g=document.getElementById('grid');
+ g.innerHTML=ITEMS.filter(function(it){return cat==='all'||it.cat===cat}).map(function(it){
+  var s=sel[it.id]||(it.sizes.length===1?it.sizes[0]:''),tag=it.status==='soon'?'<span class="tag soon">COMING SOON</span>':it.status==='out'?'<span class="tag out">SOLD OUT</span>':(it.isNew?'<span class="tag">NEW</span>':'');
+  var dots=it.img.length>1?'<span class="dots">'+it.img.map(function(_,i){return '<i class="'+(i?'':'on')+'"></i>'}).join('')+'</span>':'';
+  var can=it.status==='sale';
+  return '<article class="card" data-id="'+it.id+'"><button type="button" class="ph" data-zoom="'+it.id+'" aria-label="'+t(it.name)+(L==='ja'?' の画像を拡大':' — enlarge image')+'"><img src="'+it.img[0]+'" alt="'+t(it.name)+'" loading="lazy">'+tag+dots+'</button>'+
+  '<div class="bd"><span class="cat">'+(CATS.filter(function(c){return c[0]===it.cat})[0]||['',''])[1]+'</span><h3>'+t(it.name)+'</h3><div class="price">'+yen(it.price)+'<small>'+(L==='ja'?'税込':'tax incl.')+'</small></div><p class="desc">'+t(it.desc)+'</p>'+
+  '<span class="optl">SIZE</span><div class="opt">'+it.sizes.map(function(z){var so=it.soldout.indexOf(z)>=0;return '<button type="button" data-s="'+z+'" aria-pressed="'+(s===z)+'"'+(so||!can?' disabled':'')+'>'+z+'</button>'}).join('')+'</div>'+
+  '<a class="buy" href="#" role="button" aria-disabled="'+(!can)+'">'+(it.status==='soon'?'Coming Soon':it.status==='out'?'Sold Out':(L==='ja'?'購入する':'Buy now'))+'</a><p class="hint" aria-live="polite"></p></div></article>'}).join('');
+ var h=SIZE_GUIDE.head;document.getElementById('sizeGuide').innerHTML='<table><thead><tr><th></th>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+SIZE_GUIDE.rows.map(function(r){return '<tr><th>'+(L==='ja'?r[0]:r[1].en)+'</th>'+r.slice(2).map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>';
+ document.getElementById('shipTxt').textContent=SHIP[L];
+}
+function i18n(){document.querySelectorAll('[data-i18n]').forEach(function(e){if(!e.dataset.ja)e.dataset.ja=e.textContent.trim();e.textContent=L==='en'?(D[e.dataset.ja]||e.dataset.ja):e.dataset.ja});
+ document.querySelectorAll('[aria-label],[alt]').forEach(function(e){['aria-label','alt'].forEach(function(a){var v=e.getAttribute(a);if(!v)return;var k='ja_'+a.replace('-','');if(!e.dataset[k])e.dataset[k]=v;var ja=e.dataset[k];e.setAttribute(a,L==='en'?(D[ja]||ja):ja)})});
+ document.documentElement.lang=L;document.querySelectorAll('.langsw').forEach(function(b){b.innerHTML=L==='en'?'<b>EN</b> / JA':'<b>JA</b> / EN'});}
+document.addEventListener('click',function(e){
+ var c=e.target.closest('[data-c]');if(c){cat=c.dataset.c;render();return}
+ if(e.target.closest('.langsw')){L=L==='en'?'ja':'en';try{localStorage.setItem('sg_lang',L)}catch(x){}i18n();render();return}
+ var card=e.target.closest('.card');if(!card)return;var it=ITEMS.filter(function(i){return i.id===card.dataset.id})[0];
+ var sb=e.target.closest('[data-s]');if(sb){sel[it.id]=sb.dataset.s;card.querySelectorAll('[data-s]').forEach(function(b){b.setAttribute('aria-pressed',b===sb)});card.querySelector('.hint').textContent='';return}
+ var z=e.target.closest('[data-zoom]');if(z){openLb(it);return}
+ var buy=e.target.closest('.buy');if(buy){e.preventDefault();if(it.status!=='sale')return;
+  var s=sel[it.id]||(it.sizes.length===1?it.sizes[0]:''),hint=card.querySelector('.hint');
+  if(!s){hint.textContent=L==='ja'?'サイズを選んでください':'Please choose a size';return}
+  var url=(it.links&&it.links[s])||it.link;
+  if(!url){hint.textContent=L==='ja'?'準備中です。Instagramからお問い合わせください':'Coming soon — please message us on Instagram';return}
+  window.open(url,'_blank','noopener')}
+});
+var lbIt=null,lbI=0,lb=document.getElementById('lb');
+function openLb(it){lbIt=it;lbI=0;show();lb.hidden=false;lb.querySelector('.x').focus()}
+function show(){var im=document.getElementById('lbImg');im.src=lbIt.img[lbI];im.alt=t(lbIt.name);lb.querySelector('.pv').hidden=lb.querySelector('.nx').hidden=lbIt.img.length<2}
+lb.addEventListener('click',function(e){if(e.target.closest('.pv')){lbI=(lbI-1+lbIt.img.length)%lbIt.img.length;show()}else if(e.target.closest('.nx')){lbI=(lbI+1)%lbIt.img.length;show()}else if(e.target===lb||e.target.closest('.x'))lb.hidden=true});
+document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')lb.hidden=true;if(e.key==='ArrowRight'&&lbIt){lbI=(lbI+1)%lbIt.img.length;show()}if(e.key==='ArrowLeft'&&lbIt){lbI=(lbI-1+lbIt.img.length)%lbIt.img.length;show()}});
+i18n();render();
+</script>
+</body>
+</html>
