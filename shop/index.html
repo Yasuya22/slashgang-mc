@@ -175,7 +175,7 @@ footer a{color:var(--bone);text-decoration:none;margin-right:16px}
 <!-- ORBIT -->
 <header class="hero" id="orbit">
   <div class="hero-word" aria-hidden="true">Slash Gang</div>
-  <div class="hero-name" aria-live="polite"><span class="lbl">Official Store · 2026</span><b id="faceName" style="margin-top:12px">HOODIE · BLACK / FRONT</b></div>
+  <div class="hero-name" aria-live="polite"><span class="lbl">Official Store · 2026</span><b id="faceName" style="margin-top:12px">CAP · BLACK / FRONT</b></div>
   <div class="stage3d" id="stage" role="img" aria-label="アイテムを360度回して見られます。左右にドラッグしてください">
     <div class="ring" id="ring"></div>
     <div class="floor"></div>
@@ -256,7 +256,10 @@ var PRODUCTS=[
   sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
  {id:'tee-white',group:'tee',name:'Helmet Skull Tee',color:{ja:'ホワイト',en:'White'},hex:'#eee',price:0,f:'img/wht-f.webp',b:'img/wht-b.webp',
   desc:{ja:'胸にヘルメットをかぶったスカルと血のしたたる2本の日本刀、背中の肩口に「Slash Gang」のロゴ。',en:'Helmeted skull with two blood-dripping katanas on the chest, “Slash Gang” across the shoulders on the back.'},
-  sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}}
+  sizes:['S','M','L','XL','XXL'],soldout:[],link:'',links:{}},
+ {id:'cap-black',group:'cap',name:'SG Katana Cap',color:{ja:'ブラック',en:'Black'},hex:'#111',price:0,f:'img/cap-f.webp',b:'img/cap-b.webp',
+  desc:{ja:'正面に交差した2本の日本刀と「SG」の立体刺繍、背面にクラブの日付「1/22」と日本刀の刺繍。',en:'Crossed katanas and a raised “SG” embroidered on the front, the club date “1/22” with a katana on the back.'},
+  sizes:['FREE'],soldout:[],link:'',links:{}}
 ];
 var SIZE_GUIDE={head:['S','M','L','XL','XXL'],rows:[['着丈','Length','—','—','—','—','—'],['身幅','Chest','—','—','—','—','—'],['袖丈','Sleeve','—','—','—','—','—']]};
 /* ================================================================ */
@@ -274,7 +277,7 @@ function $(i){return document.getElementById(i)}
 
 /* ---------- ORBIT ---------- */
 (function(){
- var faces=[[PRODUCTS[0].f,'HOODIE · BLACK / FRONT',0,'f'],[PRODUCTS[3].f,'TEE · WHITE / FRONT',3,'f'],[PRODUCTS[1].f,'HOODIE · WHITE / FRONT',1,'f'],[PRODUCTS[2].f,'TEE · BLACK / FRONT',2,'f'],[PRODUCTS[0].b,'HOODIE · BLACK / BACK',0,'b'],[PRODUCTS[3].b,'TEE · WHITE / BACK',3,'b'],[PRODUCTS[1].b,'HOODIE · WHITE / BACK',1,'b'],[PRODUCTS[2].b,'TEE · BLACK / BACK',2,'b']];
+ var faces=[[PRODUCTS[4].f,'CAP · BLACK / FRONT',4,'f'],[PRODUCTS[0].f,'HOODIE · BLACK / FRONT',0,'f'],[PRODUCTS[3].f,'TEE · WHITE / FRONT',3,'f'],[PRODUCTS[1].f,'HOODIE · WHITE / FRONT',1,'f'],[PRODUCTS[2].f,'TEE · BLACK / FRONT',2,'f'],[PRODUCTS[0].b,'HOODIE · BLACK / BACK',0,'b'],[PRODUCTS[3].b,'TEE · WHITE / BACK',3,'b'],[PRODUCTS[1].b,'HOODIE · WHITE / BACK',1,'b'],[PRODUCTS[2].b,'TEE · BLACK / BACK',2,'b'],[PRODUCTS[4].b,'CAP · BLACK / BACK',4,'b']];
  var ring=$('ring'),st=$('stage'),nm=$('faceName'),n=faces.length,R;
  ring.innerHTML=faces.map(function(f,i){return '<figure class="face" data-i="'+i+'"><img src="'+f[0]+'" alt="" draggable="false"></figure>'}).join('');
  var els=[].slice.call(ring.children);
@@ -298,7 +301,7 @@ function $(i){return document.getElementById(i)}
 /* ---------- HANG RAIL ---------- */
 var rail=$('railEl'),rw=$('railWrap'),items=[];
 (function(){
- var seq=[0,3,2,1,0,3,2,1,0,3,2,1,0,3,2,1];var html='';
+ var seq=[0,3,4,2,1,0,3,4,2,1,0,3,4,2,1];var html='';
  seq.forEach(function(pi,i){var p=PRODUCTS[pi];
   html+='<div class="hg" data-p="'+pi+'"><div class="hg-in">'+
   '<svg class="hook" viewBox="0 0 40 60" aria-hidden="true"><path d="M20 30V14a7 7 0 1 0-7-7" fill="none" stroke="#c9c3ba" stroke-width="2.4" stroke-linecap="round"/><path d="M4 44 20 30l16 14" fill="none" stroke="#7a4a2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
@@ -331,7 +334,7 @@ function fill(){var p=PRODUCTS[cur];
  var groups=[];PRODUCTS.forEach(function(q){if(groups.indexOf(q.group)<0)groups.push(q.group)});$('pdNo').textContent=String(groups.indexOf(p.group)+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0');
  $('pdName').textContent=p.name;$('pdPrice').innerHTML=yen(p.price)+(p.price?'<small>'+(L==='ja'?'税込':'tax incl.')+'</small>':'');$('pdDesc').textContent=t(p.desc);$('colName').textContent=t(p.color).toUpperCase();
  $('sw').innerHTML=PRODUCTS.map(function(q,i){if(q.group!==p.group)return '';return '<button type="button" data-c="'+i+'" style="background:'+q.hex+'" aria-label="'+t(q.color)+'" aria-pressed="'+(i===cur)+'"></button>'}).join('');
- if(p.soldout.indexOf(size)>=0||p.sizes.indexOf(size)<0)size='';
+ if(p.soldout.indexOf(size)>=0||p.sizes.indexOf(size)<0)size='';if(p.sizes.length===1&&p.soldout.indexOf(p.sizes[0])<0)size=p.sizes[0];
  $('sizes').innerHTML=p.sizes.map(function(z){return '<button type="button" data-s="'+z+'" aria-pressed="'+(z===size)+'"'+(p.soldout.indexOf(z)>=0?' disabled':'')+'>'+z+'</button>'}).join('');
  var live=!!(p.link||Object.keys(p.links||{}).length);$('buy').textContent=live?(L==='ja'?'購入する':'Buy now'):(L==='ja'?'近日発売 ・ Instagramで告知':'Coming soon · see Instagram');$('buy').dataset.live=live?'1':'';$('hint').textContent='';
  flip.classList.toggle('back',face==='b');pd.querySelectorAll('[data-face]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.face===face)})}
