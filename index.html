@@ -505,7 +505,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
       return out;
     }
     function toBuf(arr){var b=AC.createBuffer(1,arr.length,SR);b.getChannelData(0).set(arr);return b}
-    var bikes=engines().map(function(e){return {e:e,buf:toBuf(renderBike(e[1],e[2],e[3],e[5]))}});flushTrk();
+    var bikes=engines().map(function(e){return {e:e,buf:toBuf(renderBike(e[1],e[2],e[3],e[5]))}}),musBuf=toBuf(renderMusic());flushTrk();
     var T=AC.currentTime+.08;
     var eBus=AC.createGain();eBus.gain.value=1.15;
     var pk=AC.createBiquadFilter();pk.type='lowshelf';pk.frequency.value=140;pk.gain.value=5;
@@ -516,9 +516,10 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
       if(hasPan){var pn=AC.createStereoPanner();b.e[4].forEach(function(p,i){var tt=T+b.e[0]+p[0];if(i==0)pn.pan.setValueAtTime(p[1],tt);else pn.pan.linearRampToValueAtTime(p[1],tt)});src.connect(pn);node=pn}
       node.connect(eBus);src.start(T+b.e[0]);});
     // music chain
-    var mg=AC.createGain();mg.gain.setValueAtTime(.5,T);mg.connect(master);introT=T;
-    withTrk(function(){if(!running)return;var mus=AC.createBufferSource();mus.buffer=trkBuf;mus.connect(mg);
-      var now=AC.currentTime,st=Math.max(now,T),off=(TRK_DROP-14.0)+(st-T);mus.start(st,Math.max(0,off));introSrc=mus});
+    var mus=AC.createBufferSource();mus.buffer=musBuf;
+    var mg=AC.createGain();mg.gain.setValueAtTime(.38,T);mg.gain.setValueAtTime(.38,T+17.6);mg.gain.linearRampToValueAtTime(0,T+19.2);
+    var mlp=AC.createBiquadFilter();mlp.type='lowpass';mlp.frequency.value=5200;
+    mus.connect(mlp);mlp.connect(mg);mg.connect(master);mus.start(T);
     // pass-by whooshes + impact
     var nb=AC.createBuffer(1,SR*2,SR),d=nb.getChannelData(0),r=rnd(3);for(var k=0;k<d.length;k++)d[k]=r();
     function noise(){var n=AC.createBufferSource();n.buffer=nb;n.loop=true;return n}
@@ -794,9 +795,8 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
     if(bgmSrc){try{bgmSrc.stop()}catch(e){}}
     bgmOn=true;setBtn();
     withTrk(function(){if(!bgmOn||bgmSrc)return;
-      bgmGain=ac.createGain();bgmSrc=ac.createBufferSource();bgmSrc.buffer=trkLoop;bgmSrc.loop=true;bgmSrc.connect(bgmGain);bgmGain.connect(ac.destination);
-      var t=ac.currentTime,off=0;if(introT){var pos=(TRK_DROP-14.0)+(t-introT);if(pos>TRK_DROP)off=(pos-TRK_DROP)%trkLoop.duration;introT=0}
-      bgmGain.gain.setValueAtTime(0,t);bgmGain.gain.linearRampToValueAtTime(.38,t+(off?1.2:2));bgmSrc.start(t,off)});
+      bgmGain=ac.createGain();bgmSrc=ac.createBufferSource();bgmSrc.buffer=trkBuf;bgmSrc.loop=true;bgmSrc.connect(bgmGain);bgmGain.connect(ac.destination);
+      var t=ac.currentTime;bgmGain.gain.setValueAtTime(0,t);bgmGain.gain.linearRampToValueAtTime(.4,t+.6);bgmSrc.start(t,0)});
   }
   function stopBGM(){if(!bgmSrc||!AC){bgmOn=false;return}var t=AC.currentTime,s=bgmSrc;bgmGain.gain.cancelScheduledValues(t);bgmGain.gain.setValueAtTime(bgmGain.gain.value,t);bgmGain.gain.linearRampToValueAtTime(0,t+.8);setTimeout(function(){try{s.stop()}catch(e){}},900);bgmSrc=null;bgmOn=false;setBtn()}
   function setBtn(){try{localStorage.setItem('sg_bgm','on')}catch(e){}}
