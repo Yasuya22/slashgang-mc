@@ -411,7 +411,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
   var intro=document.getElementById('intro'),gate=document.getElementById('gate'),skip=document.getElementById('skip');
   var $=function(id){return document.getElementById(id)};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var anims=[],AC=null,master=null,timer=null,running=false;
+  var anims=[],AC=null,master=null,timer=null,running=false,introT=0,introSrc=null;
   document.documentElement.style.overflow='hidden';
   function A(el,kf,o){var a=el.animate(kf,Object.assign({fill:'both',easing:'cubic-bezier(.3,.7,.2,1)'},o));anims.push(a);return a}
   function end(){
@@ -419,9 +419,21 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
     running=false;clearTimeout(timer);stopBG();
     anims.forEach(function(a){try{a.cancel()}catch(e){}});anims=[];
     if(master&&AC){var t=AC.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(0,t+.6);}
+    if(introSrc){var isrc=introSrc;introSrc=null;setTimeout(function(){try{isrc.stop()}catch(e){}},900)}
     if(!bgmOn) setTimeout(startBGM,400);
     intro.animate([{opacity:1},{opacity:0}],{duration:reduce?0:700,fill:'forwards'}).onfinish=function(){intro.hidden=true;intro.style.opacity='';document.documentElement.style.overflow='';var h=document.querySelector('.name');if(h)h.scrollIntoView({block:'nearest'})};
   }
+  /* ---------- club theme track (theme.mp3): drop lands on the intro impact ---------- */
+  var TRK_DROP=18.338,TRK_BAR=2.5262,TRK_LOOP_BARS=16,trkRaw=null,trkBuf=null,trkLoop=null,trkWait=[];
+  try{fetch('theme.mp3').then(function(r){return r.ok?r.arrayBuffer():null}).then(function(b){trkRaw=b;flushTrk()}).catch(function(){})}catch(e){}
+  function flushTrk(){if(!trkRaw||!AC||trkBuf)return;var raw=trkRaw;trkRaw=null;
+    var done=function(b){trkBuf=b;trkLoop=makeLoop(b);var w=trkWait;trkWait=[];w.forEach(function(f){f()})};
+    try{var pr=AC.decodeAudioData(raw,done,function(){});if(pr&&pr.then)pr.then(function(b){if(!trkBuf)done(b)}).catch(function(){})}catch(e){}}
+  function withTrk(f){if(trkBuf)f();else{trkWait.push(f);flushTrk()}}
+  function makeLoop(b){var SR=b.sampleRate,ls=Math.round(TRK_DROP*SR),le=Math.round((TRK_DROP+TRK_BAR*TRK_LOOP_BARS)*SR),L=le-ls,X=Math.round(.08*SR);
+    le=Math.min(le,b.length-X-1);L=le-ls;var o=AC.createBuffer(b.numberOfChannels,L,SR);
+    for(var c=0;c<b.numberOfChannels;c++){var src=b.getChannelData(c),dst=o.getChannelData(c);dst.set(src.subarray(ls,le));
+      for(var k=0;k<X;k++){var w=k/X;dst[k]=src[ls+k]*w+src[le+k]*(1-w)}}return o}
   /* ---------- sound ---------- */
   function audio(){
     var C=window.AudioContext||window.webkitAudioContext;if(!C) return null;
@@ -493,7 +505,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
       return out;
     }
     function toBuf(arr){var b=AC.createBuffer(1,arr.length,SR);b.getChannelData(0).set(arr);return b}
-    var bikes=engines().map(function(e){return {e:e,buf:toBuf(renderBike(e[1],e[2],e[3],e[5]))}}),musBuf=toBuf(renderMusic());
+    var bikes=engines().map(function(e){return {e:e,buf:toBuf(renderBike(e[1],e[2],e[3],e[5]))}});flushTrk();
     var T=AC.currentTime+.08;
     var eBus=AC.createGain();eBus.gain.value=1.15;
     var pk=AC.createBiquadFilter();pk.type='lowshelf';pk.frequency.value=140;pk.gain.value=5;
@@ -504,10 +516,9 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
       if(hasPan){var pn=AC.createStereoPanner();b.e[4].forEach(function(p,i){var tt=T+b.e[0]+p[0];if(i==0)pn.pan.setValueAtTime(p[1],tt);else pn.pan.linearRampToValueAtTime(p[1],tt)});src.connect(pn);node=pn}
       node.connect(eBus);src.start(T+b.e[0]);});
     // music chain
-    var mus=AC.createBufferSource();mus.buffer=musBuf;
-    var mg=AC.createGain();mg.gain.setValueAtTime(.38,T);mg.gain.setValueAtTime(.38,T+17.6);mg.gain.linearRampToValueAtTime(0,T+19.2);
-    var mlp=AC.createBiquadFilter();mlp.type='lowpass';mlp.frequency.value=5200;
-    mus.connect(mlp);mlp.connect(mg);mg.connect(master);mus.start(T);
+    var mg=AC.createGain();mg.gain.setValueAtTime(.5,T);mg.connect(master);introT=T;
+    withTrk(function(){if(!running)return;var mus=AC.createBufferSource();mus.buffer=trkBuf;mus.connect(mg);
+      var now=AC.currentTime,st=Math.max(now,T),off=(TRK_DROP-14.0)+(st-T);mus.start(st,Math.max(0,off));introSrc=mus});
     // pass-by whooshes + impact
     var nb=AC.createBuffer(1,SR*2,SR),d=nb.getChannelData(0),r=rnd(3);for(var k=0;k<d.length;k++)d[k]=r();
     function noise(){var n=AC.createBufferSource();n.buffer=nb;n.loop=true;return n}
@@ -745,7 +756,7 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
   /* ---------- site BGM: seamless loop of the dark Americana track ---------- */
   var bgmOn=false,bgmSrc=null,bgmGain=null,bgmBuf=null,wantBGM=false;
   try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
-  function getAC(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}
+  function getAC(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}flushTrk();
     if(AC.state!=='running'){try{AC.resume()}catch(e){}try{var sb=AC.createBuffer(1,1,22050),ss=AC.createBufferSource();ss.buffer=sb;ss.connect(AC.destination);ss.start(0)}catch(e){}}return AC}
   function renderLoop(SR){ // western boom-bap: dusty slide guitar over a hip-hop beat (90 BPM)
     var BAR=60/90*4,BARS=8,N=Math.floor(SR*BAR*BARS),out=new Float32Array(N),s=17;
@@ -780,14 +791,14 @@ footer .flogo{width:90px;height:auto;display:block;margin:0 auto 10px}
   }
   function startBGM(){
     var ac=getAC();if(!ac)return;
-    if(!bgmBuf){var a=renderLoop(ac.sampleRate);bgmBuf=ac.createBuffer(1,a.length,ac.sampleRate);bgmBuf.getChannelData(0).set(a)}
     if(bgmSrc){try{bgmSrc.stop()}catch(e){}}
-    bgmGain=ac.createGain();var lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=5000;
-    bgmSrc=ac.createBufferSource();bgmSrc.buffer=bgmBuf;bgmSrc.loop=true;bgmSrc.connect(lp);lp.connect(bgmGain);bgmGain.connect(ac.destination);
-    var t=ac.currentTime;bgmGain.gain.setValueAtTime(0,t);bgmGain.gain.linearRampToValueAtTime(.32,t+2.5);bgmSrc.start(t);
     bgmOn=true;setBtn();
+    withTrk(function(){if(!bgmOn||bgmSrc)return;
+      bgmGain=ac.createGain();bgmSrc=ac.createBufferSource();bgmSrc.buffer=trkLoop;bgmSrc.loop=true;bgmSrc.connect(bgmGain);bgmGain.connect(ac.destination);
+      var t=ac.currentTime,off=0;if(introT){var pos=(TRK_DROP-14.0)+(t-introT);if(pos>TRK_DROP)off=(pos-TRK_DROP)%trkLoop.duration;introT=0}
+      bgmGain.gain.setValueAtTime(0,t);bgmGain.gain.linearRampToValueAtTime(.38,t+(off?1.2:2));bgmSrc.start(t,off)});
   }
-  function stopBGM(){if(!bgmSrc||!AC)return;var t=AC.currentTime,s=bgmSrc;bgmGain.gain.cancelScheduledValues(t);bgmGain.gain.setValueAtTime(bgmGain.gain.value,t);bgmGain.gain.linearRampToValueAtTime(0,t+.8);setTimeout(function(){try{s.stop()}catch(e){}},900);bgmSrc=null;bgmOn=false;setBtn()}
+  function stopBGM(){if(!bgmSrc||!AC){bgmOn=false;return}var t=AC.currentTime,s=bgmSrc;bgmGain.gain.cancelScheduledValues(t);bgmGain.gain.setValueAtTime(bgmGain.gain.value,t);bgmGain.gain.linearRampToValueAtTime(0,t+.8);setTimeout(function(){try{s.stop()}catch(e){}},900);bgmSrc=null;bgmOn=false;setBtn()}
   function setBtn(){try{localStorage.setItem('sg_bgm','on')}catch(e){}}
   // music always plays: if it isn't running yet, the next tap starts it
   ['touchend','click','keydown'].forEach(function(ev){document.addEventListener(ev,function(){if(!intro.hidden)return;if(!bgmOn&&!running)startBGM();else if(AC&&AC.state!=='running')try{AC.resume()}catch(e){}},{passive:true})});
